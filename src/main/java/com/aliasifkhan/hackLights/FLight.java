@@ -1,14 +1,12 @@
-package com.aliasifkhan;
+package com.aliasifkhan.hackLights;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-//import com.spark.utils.Globals;
 
 public class FLight {
-
     public static final byte
             mBasic = 1,
             mSmall = 2,
@@ -42,7 +40,6 @@ public class FLight {
             lightsList[i].isVisible = true;
 
         }
-
     }
 
     public final static void clearLights() {
@@ -52,8 +49,6 @@ public class FLight {
     }
 
     public static void renderLights(SpriteBatch batch) {
-
-
         for (int i = 0; i < lightsList.length; i++) {
             //Culling is done here
 //            if (lightsList[i].mPosition.x > myScene.mPlayer.mPosition.x - Globals.RENDER_PROXIMITY && lightsList[i].mPosition.x < myScene.mPlayer.mPosition.x + Globals.RENDER_PROXIMITY
@@ -72,12 +67,11 @@ public class FLight {
         }
 
         batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-
     }
 
     public final static FLight addLight(Vector2 mPosition, byte mType, float distance, int r, int g, int b, int a, float offsetX, float offsetY, boolean isShaky) {
-
         int i = 0;
+
         // FakeLight
         while (i < lightsList.length && !lightsList[i].isDeleted()) i++;
         if (i < lightsList.length) {
@@ -94,7 +88,6 @@ public class FLight {
         }
 
         return null;
-
     }
 
 
@@ -161,7 +154,5 @@ public class FLight {
         this.g = g;
         this.b = b;
         this.a = a;
-
     }
-
 }

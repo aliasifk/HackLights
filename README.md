@@ -1,28 +1,61 @@
-# LightTest
+# HackLights
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff).
+Simple framebuffer based lighting engine for libGDX.
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+[![License](https://img.shields.io/github/license/aliasifk/HackLights)](https://github.com/aliasifk/HackLights/blob/main/LICENSE)
+[![Jitpack](https://jitpack.io/v/aliasifk/HackLights.svg)](https://jitpack.io/#aliasifk/HackLights)
 
-## Gradle
+# Installation
 
-This project uses [Gradle](http://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+1. Open or create `gradle.properties` in the root folder of your project, add the following line:
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+```properties
+hackLightsVersion=VERSION
+```
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+Check [Jitpack](https://jitpack.io/#aliasifk/HackLights/) for the latest version and replace `VERSION` with that.
+
+2. Add the jitpack repo to your build file.
+
+```groovy
+allprojects {
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+3. Add that to your core modules dependencies inside your root `build.gradle`
+
+```groovy
+project(":core") {
+    // ...
+
+    dependencies {
+        // ...
+        implementation "com.github.aliasifk:HackLights:$hackLightsVersion"
+    }
+}
+```
+
+## Html/Gwt project
+
+1. Gradle dependency:
+
+```groovy
+implementation "com.github.aliasifk:HackLights:$hackLightsVersion:sources"
+```
+
+2. In your application's `.gwt.xml` file add (Normally `GdxDefinition.gwt.xml`):
+
+```xml
+
+<inherits name="com.aliasifkhan.hackLights"/>
+```
+
+## How to test
+
+Run `./gradlew test` to run lwjgl3 tests and examples.
+
+Set environment variable `SLEEPY` to a millisecond number to sleep between each test. (For example: SLEEPY=3000 would wait 3 seconds after every test.)

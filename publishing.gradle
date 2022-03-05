@@ -1,0 +1,26 @@
+javadoc {
+
+}
+
+java {
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        hackLights(MavenPublication) {
+            pom {
+                name = "HackLights"
+                description = "Simple framebuffer based lighting engine for libGDX."
+                url = "https://github.com/aliasifk/HackLights"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+            }
+            from components.java
+        }
+    }
+}

@@ -1,67 +1,73 @@
 buildscript {
-	repositories {
-		mavenCentral()
-		maven { url 'https://s01.oss.sonatype.org' }
-		mavenLocal()
-		google()
-		gradlePluginPortal()
-		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-		maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
-	}
-	dependencies {
-
-
-		// This follows advice from https://blog.gradle.org/log4j-vulnerability
-		constraints {
-			classpath("org.apache.logging.log4j:log4j-core") {
-				version {
-					strictly("[2.17, 3[")
-					prefer("2.17.0")
-				}
-				because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
-			}
-		}
-	}
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        gradlePluginPortal()
+    }
 }
 
-allprojects {
-	apply plugin: 'eclipse'
-	apply plugin: 'idea'
+plugins {
+    id 'java-library'
+    id 'maven-publish'
 }
 
-configure(subprojects) {
-	apply plugin: 'java-library'
-	sourceCompatibility = 1.8
-	compileJava {
-		options.incremental = true
-	}
-	dependencies {
-		// This follows advice from https://blog.gradle.org/log4j-vulnerability
-		constraints {
-			implementation("org.apache.logging.log4j:log4j-core") {
-				version {
-					strictly("[2.17, 3[")
-					prefer("2.17.0")
-				}
-				because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
-			}
-		}
-	}
+apply from: 'utils.gradle'
+group 'com.'
+version '1.0.' + getGitHash()
+apply from: 'publishing.gradle'
 
+sourceCompatibility = 8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
-subprojects {
-	version = '0.0.1'
-	ext.appName = 'LightTest'
-	repositories {
-		mavenCentral()
-		maven { url 'https://s01.oss.sonatype.org' }
-		mavenLocal()
-		gradlePluginPortal()
-		maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-		maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
-		maven { url 'https://jitpack.io' }
-	}
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+    testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
-eclipse.project.name = 'LightTest' + '-parent'
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        exceptionFormat = "full"
+        showStackTraces = true
+        showExceptions = true
+        showCauses = true
+        displayGranularity = 0
+        events = [
+            "standardOut",
+            "standardError",
+            "started",
+            "passed",
+            "skipped",
+            "failed"
+        ]
+        showStandardStreams = true
+    }
+
+    reports {
+        junitXml.configure {
+            enabled(true)
+        }
+    }
+}
+
+compileJava {
+    options.incremental = true
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
