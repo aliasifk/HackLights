@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class HackLightEngine {
     private final Array<HackLight> lights = new Array<>();
@@ -16,6 +16,7 @@ public class HackLightEngine {
     private final Color ambientLightColor;
 
     private FrameBuffer lightsBuffer;
+    private final TextureRegion lightsBufferRegion;
 
     public HackLightEngine() {
         this(0.1f, 0.1f, 0.1f, 1f);
@@ -23,6 +24,8 @@ public class HackLightEngine {
 
     public HackLightEngine(float ambientR, float ambientG, float ambientB, float ambientA) {
         this.ambientLightColor = new Color(ambientR, ambientG, ambientB, ambientA);
+
+        lightsBufferRegion = new TextureRegion();
     }
 
     public void render(SpriteBatch batch) {
@@ -49,23 +52,22 @@ public class HackLightEngine {
 
         batch.begin();
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
-        batch.draw(lightsBuffer.getColorBufferTexture(), 0, lightsBuffer.getHeight(), 0, 0, lightsBuffer.getWidth(), lightsBuffer.getHeight(), 1, 1, 0, 0, 0, lightsBuffer.getWidth(), lightsBuffer.getHeight(), false, true);
+        batch.draw(lightsBufferRegion, 0, lightsBuffer.getHeight());
         batch.end();
 
         batch.setColor(oldColor);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public void update(Viewport viewport) {
-        update(viewport.getWorldWidth(), viewport.getWorldHeight());
-    }
-
-    public void update(float worldWidth, float worldHeight) {
+    public void update(int width, int height) {
         if (lightsBuffer != null)
             lightsBuffer.dispose();
 
-        lightsBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, Math.round(worldWidth), Math.round(worldHeight), false);
+        lightsBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
         lightsBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+        lightsBufferRegion.setRegion(lightsBuffer.getColorBufferTexture());
+        lightsBufferRegion.flip(false, true);
     }
 
     public void addLight(HackLight light) {

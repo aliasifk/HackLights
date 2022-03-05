@@ -61,7 +61,6 @@ public class BasicTest extends LibgdxLwjglUnitTest {
             return;
 
         gameViewport.update(width, height);
-        // engine.update(gameViewport); or:
-        engine.update(gameViewport.getWorldWidth(), gameViewport.getWorldHeight());
+        engine.update(width, height);
     }
 }
