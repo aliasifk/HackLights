@@ -8,8 +8,10 @@ Simple framebuffer based lighting engine for libGDX.
 # Example
 
 See:
-[!Sample Code](https://github.com/aliasifk/HackLights/blob/master/src/test/java/com/aliasifkhan/hackLights/lwjgl/tests/BasicTest.java)
-[![Download Sample Anti Aliased Images](https://drive.google.com/file/d/1XOmn-IpfiZMcWcXKoIG0oUjTFI2eyU9J/view?usp=sharing)
+![Sample Code](https://github.com/aliasifk/HackLights/blob/master/src/test/java/com/aliasifkhan/hackLights/lwjgl/tests/BasicTest.java)
+
+![Sample Light Textures](https://user-images.githubusercontent.com/55298434/156891366-d28edc23-1c89-40d9-8ac1-0d0c7b061d72.png)
+
 
 # Installation
 
