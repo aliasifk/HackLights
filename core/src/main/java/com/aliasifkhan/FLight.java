@@ -33,6 +33,7 @@ public class FLight {
     //
 
     public final static void initLights() {
+        //@lyze this is most important, this is the ambient light and is what gives u brightness/darkness of bg
         ambientLight.set(0.1f, 0.1f, 0.1f, 1f);
         for (int i = 0; i < lightsList.length; i++) {
             lightsList[i] = new FLight();
