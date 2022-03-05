@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -33,6 +32,8 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		image = new Texture("libgdx.png");
 		FLight.initLights();
+		//@lyze parameters of light are:
+		// type, distance, colour(rgba), and misc
 		light =  FLight.addLight(new Vector2(400,200), FLight.mBasic, LIGHT_SIZE, 247, 144, 10, 255, 0f, 0f, false);
 	}
 
@@ -52,6 +53,7 @@ public class Main extends ApplicationAdapter {
 		batch.draw(image, 140, 210);
 		batch.end();
 		renderLights(batch);
+
 		//renderUI(batch)
 	}
 

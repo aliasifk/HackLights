@@ -13,7 +13,10 @@ public class FLight {
             mBasic = 1,
             mSmall = 2,
             mBigBasic = 3;
+
+    //Light Pool since there can be many lights
     public static FLight[] lightsList = new FLight[512];
+
     public static Color ambientLight = new Color();
     public Vector2 mPosition;
     TextureRegion reg;
@@ -28,7 +31,6 @@ public class FLight {
     boolean isShaky;
     float offsetX, offsetY;
     //
-    int blink;
 
     public final static void initLights() {
         ambientLight.set(0.1f, 0.1f, 0.1f, 1f);
@@ -117,13 +119,13 @@ public class FLight {
     }
 
     static   TextureRegion  light1 = new TextureRegion(new Texture("light1.png"));
-    public void render(SpriteBatch batch) {
 
+    public void render(SpriteBatch batch) {
         switch (mType) {
             case mBasic:
                 reg = light1;
                 batch.draw(reg.getTexture(),
-                        mPosition.x - ((reg.getRegionWidth() * distance) / 2.0f), mPosition.y - (reg.getRegionHeight() * distance) / 2.0f,//Todo ?? / 4?
+                        mPosition.x - ((reg.getRegionWidth() * distance) / 2.0f), mPosition.y - (reg.getRegionHeight() * distance) / 2.0f,
                         reg.getRegionWidth() * distance, reg.getRegionHeight() * distance,
                         reg.getRegionX(), reg.getRegionY(),
                         reg.getRegionWidth(), reg.getRegionHeight(),
