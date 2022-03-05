@@ -69,7 +69,7 @@ public class Main extends ApplicationAdapter {
 		batch.setBlendFunction(GL20.GL_SRC_ALPHA, -1);
 
 
-		FLight.renderLights(batch); // rendering all sprites, batch.draw
+		FLight.renderLights(batch); // rendering all light sprites with batch.draw
 
 		batch.end();
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
@@ -102,6 +102,7 @@ public class Main extends ApplicationAdapter {
 
 		lightBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, f_WIDTH, f_HEIGHT, false);
 		lightBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+		//Display UI buffer here
 //		if (UIBuffer != null) UIBuffer.dispose();
 //		UIBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
 //		UIBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);

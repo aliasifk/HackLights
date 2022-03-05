@@ -123,7 +123,7 @@ public class FLight {
             case mBasic:
                 reg = light1;
                 batch.draw(reg.getTexture(),
-                        mPosition.x - ((reg.getRegionWidth() * distance) / 4.0f), mPosition.y - (reg.getRegionHeight() * distance) / 4.0f,//Todo ?? / 4?
+                        mPosition.x - ((reg.getRegionWidth() * distance) / 2.0f), mPosition.y - (reg.getRegionHeight() * distance) / 2.0f,//Todo ?? / 4?
                         reg.getRegionWidth() * distance, reg.getRegionHeight() * distance,
                         reg.getRegionX(), reg.getRegionY(),
                         reg.getRegionWidth(), reg.getRegionHeight(),
