@@ -1,0 +1,28 @@
+name: Deploy to github pages
+
+on:
+  push:
+    branches:
+      - example
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - run: chmod +x gradlew
+
+      - name: Build gwt
+        run: ./gradlew html:dist
+
+      - uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: html/build/dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
