@@ -25,7 +25,7 @@ public class HackLightEngine {
         this.ambientLightColor = new Color(ambientR, ambientG, ambientB, ambientA);
     }
 
-    public void render(Viewport viewport, SpriteBatch batch) {
+    public void render(SpriteBatch batch) {
         Color oldColor = batch.getColor();
 
         lightsBuffer.begin();
@@ -45,11 +45,11 @@ public class HackLightEngine {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
         lightsBuffer.end();
 
-        batch.getProjectionMatrix().setToOrtho2D(0, viewport.getWorldHeight(), lightsBuffer.getWidth(), lightsBuffer.getHeight());
+        batch.getProjectionMatrix().setToOrtho2D(0, lightsBuffer.getHeight(), lightsBuffer.getWidth(), lightsBuffer.getHeight());
 
         batch.begin();
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
-        batch.draw(lightsBuffer.getColorBufferTexture(), 0, viewport.getWorldHeight(), 0, 0, lightsBuffer.getWidth(), lightsBuffer.getHeight(), 1, 1, 0, 0, 0, lightsBuffer.getWidth(), lightsBuffer.getHeight(), false, true);
+        batch.draw(lightsBuffer.getColorBufferTexture(), 0, lightsBuffer.getHeight(), 0, 0, lightsBuffer.getWidth(), lightsBuffer.getHeight(), 1, 1, 0, 0, 0, lightsBuffer.getWidth(), lightsBuffer.getHeight(), false, true);
         batch.end();
 
         batch.setColor(oldColor);
@@ -57,10 +57,14 @@ public class HackLightEngine {
     }
 
     public void update(Viewport viewport) {
+        update(viewport.getWorldWidth(), viewport.getWorldHeight());
+    }
+
+    public void update(float worldWidth, float worldHeight) {
         if (lightsBuffer != null)
             lightsBuffer.dispose();
 
-        lightsBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, Math.round(viewport.getWorldWidth()), Math.round(viewport.getWorldHeight()), false);
+        lightsBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, Math.round(worldWidth), Math.round(worldHeight), false);
         lightsBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
     }
 

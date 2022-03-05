@@ -52,7 +52,7 @@ public class BasicTest extends LibgdxLwjglUnitTest {
         batch.draw(image, 0 - image.getWidth() / 2f, 0 - image.getHeight()  / 2f);
         batch.end();
 
-        engine.render(gameViewport, batch);
+        engine.render(batch);
     }
 
     @Override
@@ -61,6 +61,7 @@ public class BasicTest extends LibgdxLwjglUnitTest {
             return;
 
         gameViewport.update(width, height);
-        engine.update(gameViewport);
+        // engine.update(gameViewport); or:
+        engine.update(gameViewport.getWorldWidth(), gameViewport.getWorldHeight());
     }
 }
