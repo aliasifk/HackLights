@@ -42,7 +42,7 @@ public class HackLightEngine {
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, -1);
 
         for (HackLight light : lights)
-            light.render(batch);
+            light.draw(batch);
 
         batch.end();
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE);

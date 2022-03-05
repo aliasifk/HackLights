@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -18,7 +19,7 @@ public class BasicTest extends LibgdxLwjglUnitTest {
     public Viewport gameViewport;
 
     private HackLightEngine engine;
-    private HackLight light;
+    private HackLight fogLight, libgdxLight;
 
     @Override
     public void create() {
@@ -30,8 +31,9 @@ public class BasicTest extends LibgdxLwjglUnitTest {
         TextureRegion fogLightRegion = new TextureRegion(new Texture("lights.png"), 128 * 2, 128, 128, 128);
 
         engine = new HackLightEngine();
-        engine.addLight(new HackLight(0, 0, smallerLightRegion, 0, 0.25f, 0.5f, 1, 5f));
-        engine.addLight(light = new HackLight(0, 0, fogLightRegion, 1, 1, 1, 1, 2f));
+        engine.addLight(libgdxLight = new HackLight(smallerLightRegion, 0, 0.25f, 0.5f, 1, 5f));
+        libgdxLight.setOriginBasedPosition(0, 0);
+        engine.addLight(this.fogLight = new HackLight(fogLightRegion, 1, 1, 1, 1, 2f));
     }
 
     @Test
@@ -40,10 +42,17 @@ public class BasicTest extends LibgdxLwjglUnitTest {
 
     @Override
     public void render() {
-        light.setPosition(Gdx.input.getX(), Gdx.input.getY());
-        gameViewport.unproject(light.getPosition());
+        Vector2 vec = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+        gameViewport.unproject(vec);
+        fogLight.setOriginBasedPosition(vec.x, vec.y);
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+
+        gameViewport.getCamera().position.set(
+                gameViewport.getCamera().position.x + 10 * Gdx.graphics.getDeltaTime(),
+                gameViewport.getCamera().position.y + 10 * Gdx.graphics.getDeltaTime(),
+                gameViewport.getCamera().position.z
+        );
 
         gameViewport.apply();
         batch.setProjectionMatrix(gameViewport.getCamera().combined);
