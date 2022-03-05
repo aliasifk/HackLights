@@ -54,6 +54,7 @@ public class FLight {
 
 
         for (int i = 0; i < lightsList.length; i++) {
+            //Culling is done here @Lyze
 //            if (lightsList[i].mPosition.x > myScene.mPlayer.mPosition.x - Globals.RENDER_PROXIMITY && lightsList[i].mPosition.x < myScene.mPlayer.mPosition.x + Globals.RENDER_PROXIMITY
 //                    && lightsList[i].mPosition.y < myScene.mPlayer.mPosition.y + Globals.RENDER_PROXIMITY && lightsList[i].mPosition.y > myScene.mPlayer.mPosition.y - Globals.RENDER_PROXIMITY) {
 //                lightsList[i].isVisible = true;
@@ -61,16 +62,11 @@ public class FLight {
 //                lightsList[i].isVisible = false;
 //            }
 
-
-
             if (FLight.lightsList[i].isDeleted() || !lightsList[i].isVisible) {
                 continue;
             }
-
             batch.setColor(lightsList[i].getColor());
-
             lightsList[i].render(batch);
-
 
         }
 
