@@ -33,7 +33,7 @@ public class FLight {
     //
 
     public final static void initLights() {
-        //@lyze this is most important, this is the ambient light and is what gives u brightness/darkness of bg
+        // this is most important, this is the ambient light and is what gives u brightness/darkness of bg
         ambientLight.set(0.1f, 0.1f, 0.1f, 1f);
         for (int i = 0; i < lightsList.length; i++) {
             lightsList[i] = new FLight();
@@ -55,7 +55,7 @@ public class FLight {
 
 
         for (int i = 0; i < lightsList.length; i++) {
-            //Culling is done here @Lyze
+            //Culling is done here
 //            if (lightsList[i].mPosition.x > myScene.mPlayer.mPosition.x - Globals.RENDER_PROXIMITY && lightsList[i].mPosition.x < myScene.mPlayer.mPosition.x + Globals.RENDER_PROXIMITY
 //                    && lightsList[i].mPosition.y < myScene.mPlayer.mPosition.y + Globals.RENDER_PROXIMITY && lightsList[i].mPosition.y > myScene.mPlayer.mPosition.y - Globals.RENDER_PROXIMITY) {
 //                lightsList[i].isVisible = true;

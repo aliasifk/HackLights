@@ -32,7 +32,7 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		image = new Texture("libgdx.png");
 		FLight.initLights();
-		//@lyze parameters of light are:
+		// parameters of light are:
 		// type, distance, colour(rgba), and misc
 		light =  FLight.addLight(new Vector2(400,200), FLight.mBasic, LIGHT_SIZE, 247, 144, 10, 255, 0f, 0f, false);
 	}
