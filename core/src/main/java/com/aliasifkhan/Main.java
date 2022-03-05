@@ -22,6 +22,7 @@ public class Main extends ApplicationAdapter {
 	public static Viewport gameViewport;
 	public static OrthographicCamera gameCamera;
 	int f_WIDTH, f_HEIGHT;
+	float LIGHT_SIZE = 3f;
 
 	private FLight light;
 	@Override
@@ -32,17 +33,20 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		image = new Texture("libgdx.png");
 		FLight.initLights();
-		light =  FLight.addLight(new Vector2(400,200), FLight.mBasic, 2f, 247, 144, 10, 255, 0f, 0f, false);
+		light =  FLight.addLight(new Vector2(400,200), FLight.mBasic, LIGHT_SIZE, 247, 144, 10, 255, 0f, 0f, false);
 	}
 
 	@Override
 	public void render() {
-		light.mPosition.x = Gdx.input.getX() ;
-		light.mPosition.y = Gdx.graphics.getHeight() -  Gdx.input.getY() ;
+		Vector3 pos2 = gameViewport.unproject(new Vector3(Gdx.input.getX() ,  Gdx.input.getY(), 1));
+		light.mPosition.x = pos2.x;
+		light.mPosition.y =  pos2.y;
 		//
 		Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.setProjectionMatrix(gameCamera.combined);
+		gameViewport.apply();
+		batch.setProjectionMatrix(gameViewport.getCamera().combined);
+
 
 		batch.begin();
 		batch.draw(image, 140, 210);
