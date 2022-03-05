@@ -4,6 +4,7 @@
     <source path="" />
 	<inherits name="com.badlogic.gdx.backends.gdx_backends_gwt" />
 	<inherits name="com.aliasifkhan.hackLights.example.Main" />
+    <inherits name="com.aliasifkhan.hackLights"/>
     <entry-point class="com.aliasifkhan.hackLights.example.gwt.GwtLauncher" />
     <set-configuration-property name="gdx.assetpath" value="../assets" />
     <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>
