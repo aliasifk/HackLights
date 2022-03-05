@@ -35,12 +35,12 @@ public class Main extends ApplicationAdapter {
 		font = new BitmapFont();
 
 		TextureRegion smallerLightRegion = new TextureRegion(new Texture("light1.png"));
-		TextureRegion fogLightRegion = new TextureRegion(new Texture("lights.png"), 128 * 2, 128, 128, 128);
+		TextureRegion fogLightRegion = new TextureRegion(new Texture("lights.png"), 128, 128, 128, 128);
 
 		lightEngine = new HackLightEngine();
-		lightEngine.addLight(libgdxLight = new HackLight(smallerLightRegion, 0, 0.25f, 0.5f, 1, 5f));
+		lightEngine.addLight(libgdxLight = new HackLight(smallerLightRegion, 0.8f, 0.25f, 0.1f, 1, 5f));
 		libgdxLight.setOriginBasedPosition(0, 0);
-		lightEngine.addLight(this.fogLight = new HackLight(fogLightRegion, 1, 1, 1, 1, 2f));
+		lightEngine.addLight(this.fogLight = new HackLight(fogLightRegion, 0.9f, 0.8f, 0.3f, 1, 2f));
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class Main extends ApplicationAdapter {
 		ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
 		gameViewport.getCamera().position.set(
-				gameViewport.getCamera().position.x + 10 * Gdx.graphics.getDeltaTime(),
-				gameViewport.getCamera().position.y + 10 * Gdx.graphics.getDeltaTime(),
+				gameViewport.getCamera().position.x ,
+				gameViewport.getCamera().position.y ,
 				gameViewport.getCamera().position.z
 		);
 
