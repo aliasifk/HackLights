@@ -39,6 +39,7 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+
 		Vector3 pos2 = gameViewport.unproject(new Vector3(Gdx.input.getX() ,  Gdx.input.getY(), 1));
 		light.mPosition.x = pos2.x;
 		light.mPosition.y =  pos2.y;
