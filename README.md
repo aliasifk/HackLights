@@ -1,7 +1,7 @@
 # HackLights
 
 Simple framebuffer based lighting engine for libGDX.
-[![License](https://img.shields.io/github/license/aliasifk/HackLights)](https://github.com/aliasifk/HackLights/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/aliasifk/HackLights)](https://github.com/aliasifk/HackLights/blob/master/LICENSE)
 [![Jitpack](https://jitpack.io/v/aliasifk/HackLights.svg)](https://jitpack.io/#aliasifk/HackLights)
 
 ![banner2](https://user-images.githubusercontent.com/55298434/156891579-94c284dd-815c-4404-89fb-a0d3f2e42181.png)
