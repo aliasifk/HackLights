@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
 
 public class HackLightEngine {
@@ -18,6 +19,8 @@ public class HackLightEngine {
     private FrameBuffer lightsBuffer;
     private final TextureRegion lightsBufferRegion;
 
+    private final SpriteBatch batch;
+
     public HackLightEngine() {
         this(0.1f, 0.1f, 0.1f, 1f);
     }
@@ -26,10 +29,12 @@ public class HackLightEngine {
         this.ambientLightColor = new Color(ambientR, ambientG, ambientB, ambientA);
 
         lightsBufferRegion = new TextureRegion();
+
+        batch = new SpriteBatch();
     }
 
-    public void render(SpriteBatch batch) {
-        Color oldColor = batch.getColor();
+    public void draw(Matrix4 projectionMatrix) {
+        batch.setProjectionMatrix(projectionMatrix);
 
         lightsBuffer.begin();
         Gdx.gl.glClearColor(ambientLightColor.r, ambientLightColor.g, ambientLightColor.b, ambientLightColor.a);
@@ -54,9 +59,6 @@ public class HackLightEngine {
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
         batch.draw(lightsBufferRegion, 0, lightsBuffer.getHeight());
         batch.end();
-
-        batch.setColor(oldColor);
-        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public void update(int width, int height) {

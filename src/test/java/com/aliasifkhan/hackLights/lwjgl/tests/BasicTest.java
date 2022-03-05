@@ -4,7 +4,9 @@ import com.aliasifkhan.hackLights.HackLight;
 import com.aliasifkhan.hackLights.HackLightEngine;
 import com.aliasifkhan.hackLights.lwjgl.LibgdxLwjglUnitTest;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -18,8 +20,10 @@ public class BasicTest extends LibgdxLwjglUnitTest {
     private Texture image;
     public Viewport gameViewport;
 
-    private HackLightEngine engine;
+    private HackLightEngine lightEngine;
     private HackLight fogLight, libgdxLight;
+
+    private BitmapFont font;
 
     @Override
     public void create() {
@@ -27,13 +31,15 @@ public class BasicTest extends LibgdxLwjglUnitTest {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
 
+        font = new BitmapFont();
+
         TextureRegion smallerLightRegion = new TextureRegion(new Texture("light1.png"));
         TextureRegion fogLightRegion = new TextureRegion(new Texture("lights.png"), 128 * 2, 128, 128, 128);
 
-        engine = new HackLightEngine();
-        engine.addLight(libgdxLight = new HackLight(smallerLightRegion, 0, 0.25f, 0.5f, 1, 5f));
+        lightEngine = new HackLightEngine();
+        lightEngine.addLight(libgdxLight = new HackLight(smallerLightRegion, 0, 0.25f, 0.5f, 1, 5f));
         libgdxLight.setOriginBasedPosition(0, 0);
-        engine.addLight(this.fogLight = new HackLight(fogLightRegion, 1, 1, 1, 1, 2f));
+        lightEngine.addLight(this.fogLight = new HackLight(fogLightRegion, 1, 1, 1, 1, 2f));
     }
 
     @Test
@@ -61,7 +67,11 @@ public class BasicTest extends LibgdxLwjglUnitTest {
         batch.draw(image, 0 - image.getWidth() / 2f, 0 - image.getHeight()  / 2f);
         batch.end();
 
-        engine.render(batch);
+        lightEngine.draw(gameViewport.getCamera().combined);
+
+        batch.begin();
+        font.draw(batch, "Hello World", 0, 0);
+        batch.end();
     }
 
     @Override
@@ -70,6 +80,6 @@ public class BasicTest extends LibgdxLwjglUnitTest {
             return;
 
         gameViewport.update(width, height);
-        engine.update(width, height);
+        lightEngine.update(width, height);
     }
 }
