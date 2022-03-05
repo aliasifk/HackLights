@@ -67,7 +67,7 @@ public class Main extends ApplicationAdapter {
 		lightEngine.draw(gameViewport.getCamera().combined);
 
 		batch.begin();
-		font.draw(batch, "Hello World", 0, 0);
+		font.draw(batch, "UI Can be rendered on top, unaffected", -100, 100);
 		batch.end();
 	}
 
