@@ -61,6 +61,7 @@ public class HackLightEngine {
         batch.end();
     }
 
+
     public void update(int width, int height) {
         if (lightsBuffer != null)
             lightsBuffer.dispose();
@@ -94,6 +95,10 @@ public class HackLightEngine {
 
     public void setAmbientLightColor(Color color) {
         ambientLightColor.set(color);
+    }
+
+    public int size(){
+        return lights.size;
     }
 
     public void setAmbientLightColor(float r, float g, float b, float a) {
